@@ -22,6 +22,31 @@ extension SceneKitVideoRecorder {
     public var useMicrophone: Bool
     public var antialiasingMode: SCNAntialiasingMode
 
+    public init(timeScale: Int32,
+                       videoSize: CGSize,
+                       fps: Int,
+                       outputUrl: URL,
+                       audioOnlyUrl: URL,
+                       videoOnlyUrl: URL,
+                       fileType: String,
+                       codec: String,
+                       deleteFileIfExists: Bool,
+                       useMicrophone: Bool,
+                       antialiasingMode: SCNAntialiasingMode) {
+
+        self.timeScale = timeScale
+        self.videoSize = videoSize
+        self.fps = fps
+        self.outputUrl = outputUrl
+        self.audioOnlyUrl = audioOnlyUrl
+        self.videoOnlyUrl = videoOnlyUrl
+        self.fileType = fileType
+        self.codec = codec
+        self.deleteFileIfExists = deleteFileIfExists
+        self.useMicrophone = useMicrophone
+        self.antialiasingMode = antialiasingMode
+    }
+
     public static var `default`: Options {
       return Options(timeScale: 1000,
                      videoSize: CGSize(width: 720, height: 1280),
@@ -43,7 +68,7 @@ extension SceneKitVideoRecorder {
         AVVideoHeightKey: videoSize.height
       ]
     }
-    
+
     var assetWriterAudioInputSettings: [String : Any] {
       return [
         AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -52,7 +77,7 @@ extension SceneKitVideoRecorder {
         AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
       ]
     }
-    
+
     var sourcePixelBufferAttributes: [String : Any] {
       return [
         kCVPixelBufferPixelFormatTypeKey as String: NSNumber(value: kCVPixelFormatType_32ARGB),
@@ -62,4 +87,3 @@ extension SceneKitVideoRecorder {
     }
   }
 }
-
